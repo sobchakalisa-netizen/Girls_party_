@@ -128,43 +128,67 @@
             animation: fadeInUp 1.2s ease 0.5s both;
         }
         .hero-photo-ring {
-            width: 220px; height: 220px;
-            border-radius: 50%;
-            border: 4px solid var(--pink-light);
-            padding: 6px;
-            background: white;
-            box-shadow: 0 0 0 8px rgba(232,84,122,0.08), 0 20px 50px rgba(232,84,122,0.2);
-            animation: pulse-ring 3s ease-in-out infinite;
+            width: 240px;
+            height: 320px;
+            border-radius: 0;
+            border: none;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            animation: sticker-float 3.5s ease-in-out infinite;
+            transform: rotate(-4deg);
+            position: relative;
         }
-        @keyframes pulse-ring {
-            0%, 100% { box-shadow: 0 0 0 8px rgba(232,84,122,0.08), 0 20px 50px rgba(232,84,122,0.2); }
-            50% { box-shadow: 0 0 0 16px rgba(232,84,122,0.04), 0 20px 60px rgba(232,84,122,0.3); }
+        @keyframes sticker-float {
+            0%, 100% { transform: rotate(-4deg) translateY(0px); }
+            50% { transform: rotate(-2deg) translateY(-10px); }
         }
         .hero-photo {
-            width: 100%; height: 100%;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: top center;
+            display: block;
+            border-radius: 0;
+            /* Remove background: use mix-blend-mode to cut out white bg */
+            mix-blend-mode: multiply;
+            filter:
+                drop-shadow(0 0 6px white)
+                drop-shadow(0 0 6px white)
+                drop-shadow(0 0 6px white)
+                drop-shadow(0 0 4px white)
+                drop-shadow(0 8px 24px rgba(80,20,40,0.22))
+                drop-shadow(0 2px 8px rgba(232,84,122,0.25));
+        }
+        .hero-photo-ring::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            pointer-events: none;
         }
         .bride-crown {
             position: absolute;
-            top: -30px; left: 50%;
-            transform: translateX(-50%);
-            font-size: 36px;
+            top: -28px; left: 50%;
+            transform: translateX(-50%) rotate(4deg);
+            font-size: 40px;
             animation: float 2.5s ease-in-out infinite;
+            z-index: 2;
+            filter: drop-shadow(0 2px 6px rgba(232,84,122,0.4));
         }
         .bride-label {
             position: absolute;
-            bottom: -16px; left: 50%;
-            transform: translateX(-50%);
+            bottom: -22px; left: 50%;
+            transform: translateX(-50%) rotate(2deg);
             background: linear-gradient(135deg, var(--pink), #c0395a);
             color: white;
             font-family: 'Dancing Script', cursive;
             font-size: 18px;
-            padding: 4px 20px;
+            padding: 6px 22px;
             border-radius: 20px;
             white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(232,84,122,0.4);
+            box-shadow: 0 4px 16px rgba(232,84,122,0.45), 0 0 0 3px white;
+            z-index: 2;
         }
 
         .hero-name {
@@ -769,9 +793,16 @@
         </div>
         <div class="bride-label">Bride ♥</div>
     </div>
+    <!-- Sticker decorations around photo -->
+    <div style="position:relative; height:0; width:0;">
+        <span style="position:absolute; top:-280px; left:130px; font-size:28px; transform:rotate(15deg); animation: float 2.8s ease-in-out infinite; animation-delay:0.3s; display:block; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));">✨</span>
+        <span style="position:absolute; top:-320px; right:160px; font-size:22px; transform:rotate(-20deg); animation: float 3.2s ease-in-out infinite; animation-delay:0.8s; display:block; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));">💗</span>
+        <span style="position:absolute; top:-180px; left:140px; font-size:20px; transform:rotate(10deg); animation: float 2.5s ease-in-out infinite; animation-delay:1.2s; display:block; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));">🌸</span>
+        <span style="position:absolute; top:-200px; right:155px; font-size:24px; transform:rotate(-12deg); animation: float 3s ease-in-out infinite; animation-delay:0.5s; display:block; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));">🎀</span>
+    </div>
 
     <div class="hero-name">Карина</div>
-    <div class="hero-desc">Приготовься сиять — мы закатываем самую ослепительную вечеринку в честь нашей невесты!</div>
+    <div class="hero-desc">Приготовьтесь сиять — мы закатываем самую ослепительную вечеринку в честь нашей невесты!</div>
 
     <div class="scroll-hint">
         <i class="fa-solid fa-chevron-down"></i>
@@ -839,7 +870,7 @@
             <div style="text-align:center">
                 <div class="cal-time-badge">
                     <i class="fa-solid fa-clock"></i>
-                    13 июня 2026 · 13:00
+                    13 июня 2026 · 12:15
                 </div>
                 <button class="add-to-cal-btn" onclick="addToCalendar()">
                     <i class="fa-solid fa-calendar-plus"></i>
@@ -876,31 +907,31 @@
         <ul class="program-list">
             <li class="program-item">
                 <div class="program-dot"></div>
-                <div class="program-time">13:00</div>
+                <div class="program-time">12:15</div>
                 <div class="program-name">Сбор гостей 🌸</div>
                 <div class="program-desc">Встречаемся, обнимаемся, начинаем праздник!</div>
             </li>
             <li class="program-item">
                 <div class="program-dot"></div>
-                <div class="program-time">13:30</div>
+                <div class="program-time">12:45</div>
                 <div class="program-name">Приветственный бокал 🥂</div>
                 <div class="program-desc">Шампанское, тосты и первые фото</div>
             </li>
             <li class="program-item">
                 <div class="program-dot"></div>
-                <div class="program-time">14:00</div>
+                <div class="program-time">13:15</div>
                 <div class="program-name">Конкурсы и игры 🎉</div>
                 <div class="program-desc">Весёлые задания для невесты и подружек</div>
             </li>
             <li class="program-item">
                 <div class="program-dot"></div>
-                <div class="program-time">15:30</div>
+                <div class="program-time">14:45</div>
                 <div class="program-name">Фотосессия 📸</div>
                 <div class="program-desc">Незабываемые кадры на память</div>
             </li>
             <li class="program-item">
                 <div class="program-dot"></div>
-                <div class="program-time">17:00</div>
+                <div class="program-time">16:15</div>
                 <div class="program-name">Танцы и веселье 💃</div>
                 <div class="program-desc">Зажигаем до самого вечера!</div>
             </li>
@@ -942,7 +973,7 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
     <div class="footer-title">Ждём тебя!</div>
-    <div class="footer-sub">13 июня 2026 · 13:00 · Кузнецово</div>
+    <div class="footer-sub">13 июня 2026 · 12:15 · Кузнецово</div>
     <div class="footer-hearts">
         <span>♥</span>
         <span>♥</span>
@@ -1186,8 +1217,8 @@
         const title = encodeURIComponent('Девичник Карины 🎀');
         const details = encodeURIComponent('Приглашение на девичник в честь невесты Карины! Дресс-код: белый для невесты, розовые тона для гостей.');
         const location = encodeURIComponent('Красноярский край, Сосновоборский муниципальный округ, д. Кузнецово, Нижняя ул., 53');
-        const start = '20260613T130000';
-        const end = '20260613T220000';
+        const start = '20260613T121500';
+        const end = '20260613T210000';
 
         // Try to detect iOS/Android for native calendar
         const ua = navigator.userAgent;
@@ -1216,7 +1247,7 @@
 
     // ===== COUNTDOWN =====
     function updateCountdown() {
-        const target = new Date('2026-06-13T13:00:00');
+        const target = new Date('2026-06-13T12:15:00');
         const now = new Date();
         const diff = target - now;
         if (diff <= 0) {
